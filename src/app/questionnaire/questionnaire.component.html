@@ -1,0 +1,55 @@
+<div class="questionnaire">
+    <div class="questionnaire_wrap">
+        <h2 class="questionnaire-title">Questionnaire</h2>
+        <form class="form" [formGroup]="questionnaireForm" (ngSubmit)="submitForm()">
+          <div class="form-firstName">
+            <mat-form-field>
+              <mat-label>Name</mat-label>
+              <input required matInput formControlName="name" >
+              <mat-error *ngIf="formControls.name.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-lastName">
+            <mat-form-field>
+              <mat-label>Surname</mat-label>
+              <input required matInput formControlName="surname">
+              <mat-error *ngIf="formControls.surname.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-born">
+            <mat-form-field>
+              <mat-label>Choose a date</mat-label>
+              <input required matInput [max]="maxDate" [matDatepicker]="picker" formControlName="date">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-error *ngIf="formControls.date.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="form-framework">
+            <mat-form-field>
+              <mat-label>Choose a framework</mat-label>
+              <mat-select formControlName="framework" required [value]="frameworkItem" (selectionChange)="changeFramework($event.value)">
+                <mat-option [value]="item" *ngFor="let item of frameworks">{{ item }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="form-framework-version">
+            <mat-form-field>
+              <mat-label>Choose a framework version</mat-label>
+              <mat-select formControlName="frameworkVersion" required [value]="versionItem"  [disabled]="!frameworkItem">
+                <mat-option [value]="item" *ngFor="let item of selectedArr">{{ item }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="form-email">
+            <mat-form-field>
+              <mat-label>Enter your email</mat-label>
+              <input matInput placeholder="pat@example.com" formControlName = "email" required>
+              <mat-error *ngIf="formControls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <button mat-button type="submit">send</button>
+        </form>
+    </div>
+</div>
