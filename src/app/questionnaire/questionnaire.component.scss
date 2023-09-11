@@ -1,0 +1,24 @@
+.questionnaire{
+  padding: 30px 50px;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgb(0 0 0 / 10%);
+  margin: 20px auto;
+  border: 1px solid transparent;
+  max-width: 500px;
+
+  .questionnaire_wrap{
+    text-align: center;
+  }
+}
+mat-form-field{
+  width: 100%;
+  padding: 5px 0;
+}
+
+.form-born{
+  mat-hint{
+    font-size: 10px;
+    color: grey;
+    margin-top: -3px;
+  }
+}
