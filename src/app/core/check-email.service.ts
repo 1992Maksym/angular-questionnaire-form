@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {delay, Observable, tap} from "rxjs";
-import {ValidationErrors} from "@angular/forms";
+import {delay, map, Observable} from "rxjs";
+import {FormControl} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +13,12 @@ export class CheckEmailService {
     private http: HttpClient
   ) { }
 
-  bla(){
-    console.log('blabla')
-  }
-
-  checkInData(email: string): Observable<ValidationErrors | null> | null{
+  checkInData(mail: FormControl): Observable<any>{
     const data = this.http.get(this.link).pipe(
       delay(2000),
-      tap(el => console.log('in service: ' + el)),
-    ).subscribe()
+      map(users => Object.values(users).filter(obj => obj.email === mail)),
+    )
 
-    return null
+    return data
   }
 }

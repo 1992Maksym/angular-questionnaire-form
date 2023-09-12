@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
-import {Observable} from "rxjs";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CheckEmailService} from "../core/check-email.service";
+import {EmailCheckValidator} from "../shared/emailCheck.validator";
 
 
 @Component({
@@ -20,6 +20,7 @@ export class QuestionnaireComponent {
   selectedArr:string[] = []
   frameworkItem:string = '';
   versionItem = '';
+  mail = 'test2@test.test'
 
 
   get formControls() {
@@ -32,45 +33,36 @@ export class QuestionnaireComponent {
     date: new FormControl('',[Validators.required]),
     framework: new FormControl('',[Validators.required]),
     frameworkVersion: new FormControl('',[Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email, this.checkEmail]),
+    email: new FormControl('', [Validators.required, Validators.email],[EmailCheckValidator.createValidator(this.checkEmailService)]),
   })
 
   constructor(
-    private checkEmailService: CheckEmailService
+    private checkEmailService: CheckEmailService,
   ){
+
     this.maxDate = new Date()
   }
 
   ngOnInit(): void{
 
   }
-  submitForm(){
-    console.log(this.questionnaireForm.value)
+  submitForm(): void{
   }
-  changeFramework(value:any){
+  changeFramework(value:any): void{
     this.frameworkItem = value;
     this.selectedArr = Object.values(this.frameworkVersions)[this.frameworks.indexOf(this.frameworkItem)]
   }
 
-  getEmailErrorMessage() {
+  getEmailErrorMessage(): string {
     if (this.formControls.email.hasError('required')) {
       return 'You must enter a value';
     }
 
-    return this.formControls.email.hasError('email') ? 'Not a valid email' : '';
+    return this.formControls.email.hasError('email') ? 'Not a valid email' : 'Email already exist';
   }
 
-  getErrorMessage() {
+  getErrorMessage(): string {
       return 'You must enter a value';
   }
-
-  checkEmail(control: AbstractControl): Observable<ValidationErrors | null> | null{
-    this.checkEmailService.bla()
-    console.log(control)
-    return null
-  }
-
-
-
 
 }

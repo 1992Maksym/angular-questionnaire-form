@@ -8,6 +8,15 @@
             "frameworkVersion": "1.2.1",
             "email": "test2@test.test",
             "hobby": [{"name": "football", "duration": "2 month"}, {"name": "tennis", "duration": "6 month"}]
+        },
+        {
+          "firstName": "Mike",
+          "lastName": "Pupkin",
+          "dateOfBirth": "23-11-1995",
+          "framework": "angular",
+          "frameworkVersion": "1.2.1",
+          "email": "test2@gmail.com",
+          "hobby": [{"name": "football", "duration": "2 month"}, {"name": "tennis", "duration": "6 month"}]
         }
     ]
 }

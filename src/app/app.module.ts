@@ -17,7 +17,7 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
 @NgModule({
   declarations: [
     AppComponent,
-    QuestionnaireComponent
+    QuestionnaireComponent,
   ],
   imports: [
     BrowserModule,
