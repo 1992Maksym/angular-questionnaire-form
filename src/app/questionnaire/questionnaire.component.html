@@ -5,7 +5,7 @@
           <div class="form-firstName">
             <mat-form-field>
               <mat-label>Name</mat-label>
-              <input required matInput formControlName="name" >
+              <input required matInput formControlName="name">
               <mat-error *ngIf="formControls.name.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
@@ -49,7 +49,51 @@
               <mat-error *ngIf="formControls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
-          <button mat-button type="submit">send</button>
+
+
+          <div class="form-hobby">
+            <div class="hobby-questionnaire">
+              <mat-label class="hobby-title">Tell about your hobby</mat-label>
+              <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+                <mat-step [stepControl]="firstFormGroup">
+                  <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>hobby name</ng-template>
+                    <mat-form-field>
+                      <mat-label>name</mat-label>
+                      <input matInput #hobbyNameLink [value]="hobbyName" (input)="getHobbyName(hobbyNameLink)" formControlName="firstCtrl" required>
+                      <!--                    <input matInput #hobbyNameLink [value]="hobbyName" (input)="getHobbyName(hobbyNameLink)" formControlName="firstCtrl" required>-->
+                    </mat-form-field>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="secondFormGroup" label="hobby duration">
+                  <form [formGroup]="secondFormGroup">
+                    <mat-form-field>
+                      <mat-label>duration</mat-label>
+                      <input matInput [value]="hobbyDuration" formControlName="secondCtrl" #hobbyDurationLink (input)="getHobbyDuration(hobbyDurationLink)" required>
+                    </mat-form-field>
+                  </form>
+                </mat-step>
+                <mat-step>
+                  <ng-template matStepLabel>Done</ng-template>
+                  <div>
+                    <a class="hobbyDoneBtn" mat-raised-button [disabled]="disableDoneBtn" (click)="doneHobby()">Done</a>
+                  </div>
+                </mat-step>
+              </mat-stepper>
+            </div>
+            <div class="hobby-note">
+              <div class="hobby-note-title">Your hobby:</div>
+              <div class="hobby-note-item" *ngFor="let item of hobbyArr">
+                <div class="item-text">
+                  <span>{{item.name}}: </span>
+                  <span>{{item.duration}}</span>
+                </div>
+                <a class="hobby-del-btn denger" mat-raised-button color="warn" (click)="deleteHobby(item)">del</a>
+              </div>
+            </div>
+          </div>
+
+          <button mat-button [disabled] = "disableForm" type="submit">send</button>
         </form>
     </div>
 </div>

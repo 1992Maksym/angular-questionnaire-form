@@ -9,7 +9,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
+import {MatStepper, MatStepperModule} from "@angular/material/stepper";
 
 import { AppComponent } from './app.component';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
@@ -30,9 +31,10 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
     MatNativeDateModule,
     ReactiveFormsModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatStepperModule,
   ],
-  providers: [],
+  providers: [MatStepper],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

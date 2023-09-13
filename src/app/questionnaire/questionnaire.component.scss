@@ -9,6 +9,34 @@
   .questionnaire_wrap{
     text-align: center;
   }
+  .form-hobby{
+    display: flex;
+    justify-content: space-between;
+
+    .hobbyDoneBtn{
+      margin-top: 10px;
+    }
+    .hobby-note-title{
+      font-size: 13px;
+      font-weight: 500;
+      text-align: center;
+    }
+    .hobby-note-item{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .item-text{
+        font-size: 14px;
+        font-weight: 300;
+      }
+      .hobby-del-btn{
+        width: 15px;
+        height: 10px;
+        font-size: 10px;
+      }
+    }
+  }
 }
 mat-form-field{
   width: 100%;
@@ -20,5 +48,22 @@ mat-form-field{
     font-size: 10px;
     color: grey;
     margin-top: -3px;
+  }
+}
+
+
+:host::ng-deep{
+  .mat-stepper-label-position-bottom .mat-horizontal-stepper-header, .mat-vertical-stepper-header{
+    padding: 24px 0;
+  }
+  .mat-vertical-content-container{
+    margin-left: 12px;
+  }
+  .mat-vertical-content{
+    padding: 0 0 0 12px;
+  }
+  .mdc-button{
+    min-width: 40px;
+    min-height: 15px
   }
 }
