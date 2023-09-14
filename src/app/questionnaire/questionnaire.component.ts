@@ -1,20 +1,22 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CheckEmailService} from "../core/check-email.service";
 import {EmailCheckValidator} from "../shared/emailCheck.validator";
 import {Hobby} from "../shared/hobby";
 import {MatStepper} from "@angular/material/stepper";
-
+import {ServerDataService} from "../core/server-data.service";
+import {UserQuestionnaire} from "../shared/user-questionnaire";
 
 
 @Component({
   selector: 'app-questionnaire',
   templateUrl: './questionnaire.component.html',
-  styleUrls: ['./questionnaire.component.scss']
+  styleUrls: ['./questionnaire.component.scss'],
 })
-export class QuestionnaireComponent {
+export class QuestionnaireComponent implements OnInit{
   @ViewChild('stepper') matStepper: MatStepper | undefined
 
+  date:string = ''
   maxDate: Date;
   frameworks = ["angular", "react", "vue"];
   frameworkVersions = {
@@ -59,13 +61,30 @@ export class QuestionnaireComponent {
   constructor(
     private checkEmailService: CheckEmailService,
     private _formBuilder: FormBuilder,
+    private serverData: ServerDataService
   ){
 
     this.maxDate = new Date()
   }
 
+  ngOnInit():void {
+
+  }
+
   submitForm(): void{
-    console.log(this.questionnaireForm.value)
+    const form: UserQuestionnaire = {
+      firstName: this.questionnaireForm.controls.name.value!,
+      lastName: this.questionnaireForm.controls.surname.value!,
+      dateOfBirth: this.date,
+      framework: this.questionnaireForm.controls.framework.value!,
+      frameworkVersion: this.questionnaireForm.controls.frameworkVersion.value!,
+      email: this.questionnaireForm.controls.email.value!,
+      hobby: this.questionnaireForm.controls.hobby.value!,
+    }
+
+    this.serverData.postQuestionnaire(form);
+    this.questionnaireForm.reset();
+    this.hobbyArr = [];
   }
   changeFramework(value:any): void{
     this.frameworkItem = value;
@@ -104,6 +123,9 @@ export class QuestionnaireComponent {
   deleteHobby(item:Hobby){
     const index = this.hobbyArr.indexOf(item)
     this.hobbyArr.splice(index,1)
+  }
+  changeDate(date: any){
+    this.date = date.split('/').join('-')
   }
 
 }

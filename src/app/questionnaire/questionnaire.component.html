@@ -19,7 +19,7 @@
           <div class="form-born">
             <mat-form-field>
               <mat-label>Choose a date</mat-label>
-              <input required matInput [max]="maxDate" [matDatepicker]="picker" formControlName="date">
+              <input required matInput #inputDate [max]="maxDate" [matDatepicker]="picker" formControlName="date" (dateChange)="changeDate(inputDate.value)">
               <mat-hint>MM/DD/YYYY</mat-hint>
               <mat-error *ngIf="formControls.date.invalid">{{getErrorMessage()}}</mat-error>
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -49,8 +49,6 @@
               <mat-error *ngIf="formControls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
-
-
           <div class="form-hobby">
             <div class="hobby-questionnaire">
               <mat-label class="hobby-title">Tell about your hobby</mat-label>
@@ -92,8 +90,8 @@
               </div>
             </div>
           </div>
-
           <button mat-button [disabled] = "disableForm" type="submit">send</button>
+<!--          <button mat-button type="submit">send</button>-->
         </form>
     </div>
 </div>
